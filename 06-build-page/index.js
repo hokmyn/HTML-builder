@@ -24,6 +24,21 @@ fsPromises
             recursive: true,
           })
           .then((res) => {
+            if (res == undefined) {
+              fs.readdir(
+                `${__dirname}/project-dist/assets/${dir}`,
+                (err, files) => {
+                  files.forEach((item) => {
+                    fs.unlink(
+                      `${__dirname}/project-dist/assets/${dir}/${item}`,
+                      (err) => {
+                        if (err) throw err;
+                      }
+                    );
+                  });
+                }
+              );
+            }
             fs.readdir(`${__dirname}/assets/${dir}`, (err, files) => {
               if (err) throw err;
               files.forEach((item) => {
