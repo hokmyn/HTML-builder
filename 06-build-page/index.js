@@ -86,14 +86,14 @@ fs.readFile(`${__dirname}/template.html`, "utf8", (err, data) => {
 
 fs.readdir(pathToComponents, (err, files) => {
   if (err) throw err;
-  files.forEach((item, index) => {
+  files.forEach((item, index, files) => {
     fs.readFile(`${pathToComponents}/${item}`, "utf8", (err, data) => {
       if (err) throw err;
       tmplContent = tmplContent.replace(
         `{{${path.basename(item, path.extname(item))}}}`,
         data
       );
-      if (index === 2) {
+      if (index === files.length - 1) {
         fs.writeFile(
           `${__dirname}/project-dist/index.html`,
           tmplContent,
